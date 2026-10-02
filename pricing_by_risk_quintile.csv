@@ -1,0 +1,6 @@
+pd_quintile,loans,avg_pd,actual_default,avg_charged_apr,avg_break_even_apr,pct_underpriced,avg_realized_profit_per_loan
+Q1 (lowest risk),575,0.0665,0.0574,0.0929,0.0653,0.0017,392.1354
+Q2,575,0.1078,0.127,0.1131,0.0826,0.0487,235.4212
+Q3,574,0.1427,0.1655,0.1262,0.0983,0.0784,344.133
+Q4,575,0.1833,0.1757,0.1342,0.118,0.1896,265.0115
+Q5 (highest risk),575,0.3008,0.2748,0.1464,0.175,0.7148,-274.2406

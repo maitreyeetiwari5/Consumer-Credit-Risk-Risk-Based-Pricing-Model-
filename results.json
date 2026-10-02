@@ -1,0 +1,288 @@
+{
+  "data": {
+    "n_loans": 9578,
+    "default_rate": 0.1601,
+    "missing_values": 0,
+    "duplicate_rows": 0
+  },
+  "split": {
+    "train": 6704,
+    "test": 2874,
+    "train_default_rate": 0.1601,
+    "test_default_rate": 0.1601
+  },
+  "hypothesis_tests": {
+    "H1_default_rate_differs_by_fico_band": {
+      "test": "chi-square",
+      "chi2": 216.4,
+      "dof": 3,
+      "p_value": 1.212347103573798e-46,
+      "default_rates": {
+        "<660": 0.3088,
+        "660-699": 0.1937,
+        "700-739": 0.1529,
+        "740+": 0.0812
+      }
+    },
+    "H2_logit_coefficients": {
+      "inq_6m": {
+        "odds_ratio_per_1sd": 1.358,
+        "p_value": 6.702342311153521e-23
+      },
+      "fico": {
+        "odds_ratio_per_1sd": 0.693,
+        "p_value": 8.583966909455366e-14
+      },
+      "payment_to_income": {
+        "odds_ratio_per_1sd": 1.275,
+        "p_value": 1.664314775943967e-11
+      },
+      "credit_history_yrs": {
+        "odds_ratio_per_1sd": 1.075,
+        "p_value": 0.06096551643593207
+      },
+      "revol_util": {
+        "odds_ratio_per_1sd": 1.084,
+        "p_value": 0.09404836770816077
+      },
+      "pub_rec": {
+        "odds_ratio_per_1sd": 1.035,
+        "p_value": 0.26479046229894865
+      },
+      "delinq_2y": {
+        "odds_ratio_per_1sd": 0.968,
+        "p_value": 0.3417039886286469
+      },
+      "log_income": {
+        "odds_ratio_per_1sd": 1.03,
+        "p_value": 0.4942822218182559
+      },
+      "dti": {
+        "odds_ratio_per_1sd": 0.975,
+        "p_value": 0.4965376545754626
+      },
+      "log_revol_bal": {
+        "odds_ratio_per_1sd": 0.989,
+        "p_value": 0.8074447845138333
+      }
+    },
+    "H3_model_vs_credit_policy_same_approval_rate": {
+      "approval_rate": 0.8038,
+      "model_selected_default_rate": 0.1307,
+      "credit_policy_default_rate": 0.1329,
+      "z": -0.22,
+      "p_value_two_sided": 0.8278589943450546,
+      "realized_profit_model": 738017.0,
+      "realized_profit_credit_policy": 762092.0,
+      "note": "credit_policy is a post-underwriting flag and was NOT used as a model feature."
+    }
+  },
+  "model_performance": [
+    {
+      "model": "Logistic regression",
+      "cv_auc_train": 0.6777,
+      "train_auc": 0.685,
+      "test_auc": 0.656,
+      "test_gini": 0.312,
+      "test_ks": 0.2154,
+      "test_brier": 0.1285
+    },
+    {
+      "model": "Gradient boosting",
+      "cv_auc_train": 0.679,
+      "train_auc": 0.7279,
+      "test_auc": 0.6608,
+      "test_gini": 0.3217,
+      "test_ks": 0.2392,
+      "test_brier": 0.1286
+    },
+    {
+      "model": "Baseline: FICO only",
+      "cv_auc_train": NaN,
+      "train_auc": 0.6137,
+      "test_auc": 0.6225,
+      "test_gini": 0.245,
+      "test_ks": 0.1692,
+      "test_brier": 0.131
+    }
+  ],
+  "bootstrap_auc_95ci": {
+    "logistic": [
+      0.628,
+      0.6815
+    ],
+    "gradient_boosting": [
+      0.632,
+      0.6857
+    ],
+    "gb_minus_lr": [
+      -0.0075,
+      0.0174
+    ],
+    "diff_ci_includes_zero": true
+  },
+  "champion": "Logistic regression",
+  "calibration": {
+    "top_decile_actual_default": 0.3507,
+    "bottom_decile_actual_default": 0.0486,
+    "top_to_bottom_ratio": 7.2,
+    "mean_pred_pd": 0.1602,
+    "actual_default_rate": 0.1601
+  },
+  "pricing": {
+    "assumptions": {
+      "term_months": 36,
+      "lgd": 0.5,
+      "cost_of_funds": 0.04,
+      "apr_cap": 0.36
+    },
+    "expected_profit_on_underpriced_loans": -239863.0,
+    "n_underpriced": 594,
+    "overall_pct_underpriced": 0.2067,
+    "by_quintile": [
+      {
+        "pd_quintile": "Q1 (lowest risk)",
+        "loans": 575,
+        "avg_pd": 0.0665,
+        "actual_default": 0.0574,
+        "avg_charged_apr": 0.0929,
+        "avg_break_even_apr": 0.0653,
+        "pct_underpriced": 0.0017,
+        "avg_realized_profit_per_loan": 392.1354
+      },
+      {
+        "pd_quintile": "Q2",
+        "loans": 575,
+        "avg_pd": 0.1078,
+        "actual_default": 0.127,
+        "avg_charged_apr": 0.1131,
+        "avg_break_even_apr": 0.0826,
+        "pct_underpriced": 0.0487,
+        "avg_realized_profit_per_loan": 235.4212
+      },
+      {
+        "pd_quintile": "Q3",
+        "loans": 574,
+        "avg_pd": 0.1427,
+        "actual_default": 0.1655,
+        "avg_charged_apr": 0.1262,
+        "avg_break_even_apr": 0.0983,
+        "pct_underpriced": 0.0784,
+        "avg_realized_profit_per_loan": 344.133
+      },
+      {
+        "pd_quintile": "Q4",
+        "loans": 575,
+        "avg_pd": 0.1833,
+        "actual_default": 0.1757,
+        "avg_charged_apr": 0.1342,
+        "avg_break_even_apr": 0.118,
+        "pct_underpriced": 0.1896,
+        "avg_realized_profit_per_loan": 265.0115
+      },
+      {
+        "pd_quintile": "Q5 (highest risk)",
+        "loans": 575,
+        "avg_pd": 0.3008,
+        "actual_default": 0.2748,
+        "avg_charged_apr": 0.1464,
+        "avg_break_even_apr": 0.175,
+        "pct_underpriced": 0.7148,
+        "avg_realized_profit_per_loan": -274.2406
+      }
+    ]
+  },
+  "cutoff": {
+    "approve_all": {
+      "approval_rate": 1.0,
+      "default_rate": 0.1601,
+      "realized_profit_total": 553071.0
+    },
+    "optimal_by_expected_profit": {
+      "approval_rate": 0.8389,
+      "pd_cutoff": 0.2268,
+      "approved_default_rate": 0.1323,
+      "realized_profit_total": 802841.4051
+    },
+    "optimal_by_realized_profit": {
+      "approval_rate": 0.8549,
+      "pd_cutoff": 0.2349,
+      "approved_default_rate": 0.1335,
+      "realized_profit_total": 820709.8265
+    }
+  },
+  "lgd_sensitivity": [
+    {
+      "lgd": 0.3,
+      "optimal_approval_rate": 0.968,
+      "optimal_pd_cutoff": 0.365,
+      "approved_default_rate": 0.151,
+      "realized_profit_total": 1530990.0,
+      "realized_profit_approve_all": 1464948.0
+    },
+    {
+      "lgd": 0.4,
+      "optimal_approval_rate": 0.887,
+      "optimal_pd_cutoff": 0.259,
+      "approved_default_rate": 0.137,
+      "realized_profit_total": 1139578.0,
+      "realized_profit_approve_all": 1009009.0
+    },
+    {
+      "lgd": 0.5,
+      "optimal_approval_rate": 0.839,
+      "optimal_pd_cutoff": 0.227,
+      "approved_default_rate": 0.132,
+      "realized_profit_total": 802841.0,
+      "realized_profit_approve_all": 553071.0
+    },
+    {
+      "lgd": 0.6,
+      "optimal_approval_rate": 0.742,
+      "optimal_pd_cutoff": 0.193,
+      "approved_default_rate": 0.128,
+      "realized_profit_total": 440986.0,
+      "realized_profit_approve_all": 97132.0
+    },
+    {
+      "lgd": 0.7,
+      "optimal_approval_rate": 0.581,
+      "optimal_pd_cutoff": 0.157,
+      "approved_default_rate": 0.113,
+      "realized_profit_total": 234050.0,
+      "realized_profit_approve_all": -358807.0
+    }
+  ],
+  "monitoring": {
+    "score_psi_train_vs_test": 0.0041,
+    "feature_psi_train_vs_test": {
+      "fico": 0.0014,
+      "dti": 0.0086,
+      "log_income": 0.005,
+      "credit_history_yrs": 0.0033,
+      "log_revol_bal": 0.0037,
+      "revol_util": 0.0037,
+      "inq_6m": 0.0034,
+      "delinq_2y": 0.0002,
+      "pub_rec": 0.0,
+      "payment_to_income": 0.0023
+    },
+    "simulated_drift": {
+      "scenario": "FICO -30, DTI +4, revolving utilisation +12pts (synthetic)",
+      "score_psi": 0.31,
+      "feature_psi": {
+        "fico": 0.6603,
+        "dti": 0.8687,
+        "revol_util": 0.7548
+      },
+      "mean_pd_before": 0.1602,
+      "mean_pd_after": 0.2091,
+      "score_psi_status": "investigate"
+    },
+    "thresholds": {
+      "<0.10": "stable",
+      "0.10-0.25": "watch",
+      ">0.25": "investigate / recalibrate"
+    }
+  }
+}

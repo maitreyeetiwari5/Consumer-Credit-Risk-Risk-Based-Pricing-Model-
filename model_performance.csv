@@ -1,0 +1,4 @@
+model,cv_auc_train,train_auc,test_auc,test_gini,test_ks,test_brier,best_params
+Logistic regression,0.6777,0.685,0.656,0.312,0.2154,0.1285,{'m__C': 0.1}
+Gradient boosting,0.679,0.7279,0.6608,0.3217,0.2392,0.1286,"{'m__l2_regularization': 1.0, 'm__learning_rate': 0.06, 'm__max_depth': 2, 'm__max_iter': 150}"
+Baseline: FICO only,,0.6137,0.6225,0.245,0.1692,0.131,
